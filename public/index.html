@@ -19,10 +19,80 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>KNN 算法演示</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <style>
+      .container {
+        display: flex;
+      }
+
+      #drawCanvas {
+        border: 5px solid #e59448;
+      }
+
+      .drawContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .clear {
+        width: 40px;
+        height: 28px;
+        background-color: #e59448;
+        margin-top: 5px;
+        margin-left: 5px;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+      }
+
+      .predictResult {
+        width: 580px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        margin-left: 50px;
+      }
+
+      .statisticalChart {
+        display: flex;
+        width: 100%;
+        height:250px;
+        border-bottom: 1px solid #e0e0e0;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .statisticalChartItem {
+        width: 40px;
+        height: 0px;
+        background-color: #e59448;
+        transition: height 1s ease-in-out;
+      }
+
+      .predictActive {
+        height: 200px;
+      }
+
+      .statisticalTag {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .statisticalTagNumber {
+        width: 40px;
+        text-align: center;
+        color: #646164;
+        font-size: 28px;
+        font-weight: 300;
+      }
+    </style>
     <div id="root"></div>
     <!--
       This HTML file is a template.

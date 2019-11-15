@@ -1,10 +1,21 @@
 {
-  "name": "numerical_recognition",
+  "name": "knn_with_numpyjs",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tensorflow-models/knn-classifier": "^1.2.1",
+    "@tensorflow-models/mobilenet": "^2.0.4",
+    "@tensorflow/tfjs": "^1.2.2",
+    "classname": "0.0.0",
+    "classnames": "^2.2.6",
+    "jquery": "^3.4.1",
+    "jsnumpy": "^1.1.10",
+    "lodash": "^4.17.15",
+    "mnist": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.0.1"
   },
   "scripts": {
