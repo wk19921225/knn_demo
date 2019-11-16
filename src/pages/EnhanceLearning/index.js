@@ -24,10 +24,12 @@ class EnhanceLearning extends React.Component {
         this.controller = _.throttle(this.uniControl.bind(this), 1000);
         console.log(this.controller)
         this.state = {
-            currIndex: -1,
+            currIndex: 2,
+            snakePoint: [0, 1, 2],
+            blockPoint: [23, 41, 78, 82],
             showPredict: false,
             smallBlockArr: Object.keys(Array.from({length: 100})).map(function (item) {
-                return {id: item, status: false};
+                return {id: parseInt(item), status: false};
             }),
             rightMessage: '',
             leftMessage: '',
@@ -51,6 +53,7 @@ class EnhanceLearning extends React.Component {
 
         this.bindEvent();
         this.bindPage();
+        // this.bindKeyboardEvent()
     }
 
 
@@ -142,7 +145,6 @@ class EnhanceLearning extends React.Component {
     }
 
 
-
     uniControl(command) {
         console.log(command)
         let preIndex = this.state.currIndex;
@@ -157,21 +159,48 @@ class EnhanceLearning extends React.Component {
                 preIndex += 10;
                 break;
             case 'normal':
-                preIndex += 0;
+                preIndex -= 10;
                 break;
         }
 
-        if (preIndex > 100) {
-            preIndex = 0
+
+
+        let PresSnakePoint = this.state.snakePoint;
+        let PreBlockPoint = this.state.blockPoint;
+        let headPoint = PresSnakePoint[PresSnakePoint.length - 1]
+        switch (command) {
+            case "down":
+                headPoint+=10;
+                break;
+            case "normal":
+                headPoint-=10;
+                break;
+            case "left":
+                headPoint-=1;
+                break;
+            case "right":
+                headPoint+=1;
+                break;
         }
 
-        if (preIndex < 0) {
-            preIndex = 100
+        if (headPoint < 100 && headPoint >= 0) {
+            // 去掉尾部
+            PresSnakePoint.shift();
+            PresSnakePoint.push(headPoint)
+            console.log(PresSnakePoint)
         }
-        console.log(command)
+
+        if(PreBlockPoint.indexOf(headPoint) !== -1) {
+            let index = PreBlockPoint.indexOf(headPoint)
+            PreBlockPoint.splice(index, 1)
+            PresSnakePoint.unshift(PresSnakePoint[0]-1)
+        }
+
+
 
         this.setState({
-            currIndex: preIndex,
+            snakePoint: PresSnakePoint,
+            currIndex: headPoint,
         })
     };
 
@@ -209,21 +238,68 @@ class EnhanceLearning extends React.Component {
             let pointer = '';
             let key = event.keyCode;
             switch (key) {
-                case 40: pointer = 'down';break;
-                case 37: pointer = 'left';break;
-                case 38: pointer = 'top';break;
-                case 39: pointer = 'right';break;
+                case 40:
+                    pointer = 'down';
+                    break;
+                case 37:
+                    pointer = 'left';
+                    break;
+                case 38:
+                    pointer = 'top';
+                    break;
+                case 39:
+                    pointer = 'right';
+                    break;
             }
 
             console.log(pointer)
+
+            let PresSnakePoint = this.state.snakePoint;
+            let PreBlockPoint = this.state.blockPoint;
+            let headPoint = PresSnakePoint[PresSnakePoint.length - 1]
+            switch (pointer) {
+                case "down":
+                    headPoint+=10;
+                    break;
+                case "top":
+                    headPoint-=10;
+                    break;
+                case "left":
+                    headPoint-=1;
+                    break;
+                case "right":
+                    headPoint+=1;
+                    break;
+            }
+
+            if (headPoint < 100 && headPoint >= 0) {
+                // 去掉尾部
+                PresSnakePoint.shift();
+                PresSnakePoint.push(headPoint)
+                console.log(PresSnakePoint)
+            }
+
+            if(PreBlockPoint.indexOf(headPoint) !== -1) {
+                let index = PreBlockPoint.indexOf(headPoint)
+                PreBlockPoint.splice(index, 1)
+               PresSnakePoint.unshift(PresSnakePoint[0]-1)
+            }
+
+
+
             this.setState({
-                showPredict: true,
+                snakePoint: PresSnakePoint,
+                currIndex: headPoint,
             })
         }
+
+        this.setState({
+            showPredict: true,
+        })
     }
 
     render() {
-        const {showPredict, smallBlockArr, rightMessage, leftMessage, downMessage, normalMessage, currIndex} = this.state;
+        const {showPredict, smallBlockArr, rightMessage, leftMessage, downMessage, normalMessage, currIndex, snakePoint, blockPoint} = this.state;
         return (
             <div className="enhance">
                 <h6>knn 增强学习demo</h6>
@@ -277,9 +353,11 @@ class EnhanceLearning extends React.Component {
                             <div className="predict">
                                 {
                                     smallBlockArr.map(
-                                        (value) => <div key={value.id} className={ClassNames(["small-block", {
-                                            "selected": currIndex == value.id,
-                                        }])}></div>)
+                                        (value) => <div key={value.id}
+                                                        className={ClassNames(["small-block", {
+                                                            "selected": snakePoint.indexOf(value.id) !== -1,
+                                                            "block": blockPoint.indexOf(value.id) !== -1,
+                                                        }])}></div>)
                                 }
                             </div>
                         </div>

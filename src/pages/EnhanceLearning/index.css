@@ -70,6 +70,10 @@ h6 {
   border: 1px solid #e5e4e9;
 }
 
+.small-block.block {
+  background-color: lightgreen;
+}
+
 .small-block.selected {
   background-color: darkgrey;
 }
