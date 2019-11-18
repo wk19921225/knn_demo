@@ -1,6 +1,5 @@
 import np from "jsnumpy";
-import * as tf from '@tensorflow/tfjs';
-import { getExportFunction } from '../wasm/loadWebAssembly.js';
+// import { getExportFunction } from '../wasm/loadWebAssembly.js';
 
 class KNN {
   constructor( k ) {
@@ -15,26 +14,10 @@ class KNN {
 fun = (x) => x*x ;
 
   load = async () => {
-    const {_knn_computer, _add_knn_computer, _Square} = await getExportFunction('test.wasm');
-    KNN.knn_computer = _knn_computer;
-    KNN.add_knn_computer = _add_knn_computer;
-    KNN.Square = _Square;
-    //
-    // let temp1 = 0, temp2= 0;
-    // console.time('webassembly');
-    // for (let i=0; i<1; i++) {
-    //   temp1 += KNN.Square(i)
-    // }
-    // console.log(temp1)
-    // console.timeEnd('webassembly');
-    //
-    // console.time('common');
-    // for (let i=0; i<1; i++) {
-    //   temp2 += this.fun(i)
-    // }
-    // console.log(temp2)
-    // console.timeEnd('common');
-
+    // const {_knn_computer, _add_knn_computer, _Square} = await getExportFunction('test.wasm');
+    // KNN.knn_computer = _knn_computer;
+    // KNN.add_knn_computer = _add_knn_computer;
+    // KNN.Square = _Square;
   };
 
 

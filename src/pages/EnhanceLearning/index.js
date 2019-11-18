@@ -9,10 +9,10 @@ import './index.css';
 let testPrediction = false;
 let startPrediction = false;
 let training = true;
-let NUM_CLASSES = 4;
+let NUM_CLASSES = 5;
 let IMAGE_SIZE = 300;
 let TOPK = 10;
-let classes = ['right', 'left', 'down', 'normal'];
+let classes = ['normal', 'right', 'left', 'down', 'up'];
 let letterIndex = 0;
 
 class EnhanceLearning extends React.Component {
@@ -26,7 +26,7 @@ class EnhanceLearning extends React.Component {
         this.state = {
             currIndex: 2,
             snakePoint: [0, 1, 2],
-            blockPoint: [23, 41, 78, 82],
+            blockPoint: [9, 24, 95, 69, 52],
             showPredict: false,
             smallBlockArr: Object.keys(Array.from({length: 100})).map(function (item) {
                 return {id: parseInt(item), status: false};
@@ -34,6 +34,7 @@ class EnhanceLearning extends React.Component {
             rightMessage: '',
             leftMessage: '',
             downMessage: '',
+            upMessage: '',
             normalMessage: '',
         }
     }
@@ -158,8 +159,11 @@ class EnhanceLearning extends React.Component {
             case 'down':
                 preIndex += 10;
                 break;
-            case 'normal':
+            case 'up':
                 preIndex -= 10;
+                break;
+                case 'normal':
+                    preIndex += 0;
                 break;
         }
 
@@ -170,24 +174,27 @@ class EnhanceLearning extends React.Component {
         let headPoint = PresSnakePoint[PresSnakePoint.length - 1]
         switch (command) {
             case "down":
-                headPoint+=10;
+                headPoint += 10;
                 break;
-            case "normal":
-                headPoint-=10;
+            case "up":
+                headPoint -= 10;
                 break;
             case "left":
-                headPoint-=1;
+                headPoint -= 1;
                 break;
             case "right":
-                headPoint+=1;
+                headPoint += 1;
+                break;
+            case "normal":
+                headPoint += 0;
                 break;
         }
 
-        if (headPoint < 100 && headPoint >= 0) {
+        if (headPoint < 100 && headPoint >= 0 && command != 'normal') {
             // 去掉尾部
             PresSnakePoint.shift();
-            PresSnakePoint.push(headPoint)
-            console.log(PresSnakePoint)
+            PresSnakePoint.push(headPoint);
+            console.log(PresSnakePoint);
         }
 
         if(PreBlockPoint.indexOf(headPoint) !== -1) {
@@ -299,10 +306,10 @@ class EnhanceLearning extends React.Component {
     }
 
     render() {
-        const {showPredict, smallBlockArr, rightMessage, leftMessage, downMessage, normalMessage, currIndex, snakePoint, blockPoint} = this.state;
+        const {showPredict, smallBlockArr, rightMessage, leftMessage,normalMessage, downMessage, upMessage, currIndex, snakePoint, blockPoint} = this.state;
         return (
             <div className="enhance">
-                <h6>knn 增强学习demo</h6>
+                <h6>knn demo</h6>
                 <div className="video-container">
                     <video ref={(node) => {
                         this.video = node
@@ -312,23 +319,27 @@ class EnhanceLearning extends React.Component {
                     !showPredict && (
                         <div className="train-block">
                             <div className="train-btn-group">
+                                <div className="normal-content">
+                                    <button id={'normal'} className="btn trainBtn">正常</button>
+                                    <p className="message">{normalMessage}</p>
+                                </div>
                                 <div className="right-content">
                                     <button id={'right'} className="btn trainBtn">向右</button>
                                     <p className="message">{rightMessage}</p>
                                 </div>
 
-                                <div className="right-content">
+                                <div className="left-content">
                                     <button id={'left'} className="btn trainBtn">向左</button>
                                     <p className="message">{leftMessage}</p>
                                 </div>
 
-                                <div className="right-content">
+                                <div className="down-content">
                                     <button id={'down'} className="btn trainBtn">向下</button>
                                     <p className="message">{downMessage}</p>
                                 </div>
-                                <div className="right-content">
-                                    <button id={'normal'} className="btn trainBtn">正常</button>
-                                    <p className="message">{normalMessage}</p>
+                                <div className="up-content">
+                                    <button id={'up'} className="btn trainBtn">向上</button>
+                                    <p className="message">{upMessage}</p>
                                 </div>
                             </div>
 

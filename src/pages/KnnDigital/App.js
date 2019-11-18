@@ -8,7 +8,7 @@ import minist from 'mnist';
 class App extends React.Component {
   constructor( props ) {
     super(props)
-    let set = minist.set(10000, 500);
+    let set = minist.set(5000, 500);
     // {
     //   input: [ 0, 0, 0, 1, 1, ... , 0, 0 ],
     //   // a 784-length array of floats representing each pixel of the 28 x 28 image, normalized between 0 and 1
@@ -40,13 +40,13 @@ class App extends React.Component {
     })
 
 
-    let knn_classification = new KNN(15);
+    let knn_classification = new KNN(10);
     knn_classification.fit(knn_set, 'input', 'output').then(
         () => {
           // 评估模型
-          // console.time('evaluate2')
-          // knn_classification.evaluate(evaluate_set);
-          // console.timeEnd('evaluate2')
+          console.time('evaluate2')
+          knn_classification.evaluate(evaluate_set);
+          console.timeEnd('evaluate2')
         }
     )
 

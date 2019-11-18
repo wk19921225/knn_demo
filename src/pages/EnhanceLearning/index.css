@@ -21,6 +21,7 @@
  }
 
 h6 {
+  margin: 10px 0;
   width: 100%;
   text-align: center;
   font-size: 18px;
@@ -57,7 +58,6 @@ h6 {
 }
 
 .predict {
-  padding-top: 100px;
   display: grid;
   grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
   grid-template-rows:  50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
