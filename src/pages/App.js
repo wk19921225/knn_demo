@@ -10,7 +10,7 @@ class App extends React.Component{
         return (
             <Router>
                 <Route exact path="/" component={KnnDigital} />
-                <Route path="/" component={EnhanceLearning}></Route>
+                <Route path="/transform" component={EnhanceLearning}></Route>
 
             </Router>
         )
