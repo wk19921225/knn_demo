@@ -8,7 +8,7 @@
     "@tensorflow/tfjs": "^1.2.2",
     "classname": "0.0.0",
     "classnames": "^2.2.6",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsnumpy": "^1.1.10",
     "lodash": "^4.17.15",
     "mnist": "^1.1.0",
