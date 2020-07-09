@@ -4,6 +4,10 @@ import PredictArea from '../../components/PredictArea';
 import './App.css';
 import KNN from '../../algorithm/KNN';
 import minist from 'mnist';
+import * as knnClassifier from '@tensorflow-models/knn-classifier'
+
+const classifier = knnClassifier.create();
+
 
 class App extends React.Component {
   constructor( props ) {
