@@ -10,7 +10,7 @@
     "classnames": "^2.2.6",
     "jquery": "^3.4.1",
     "jsnumpy": "^1.1.10",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mnist": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
