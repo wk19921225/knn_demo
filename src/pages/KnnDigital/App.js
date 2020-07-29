@@ -3,22 +3,13 @@ import DrawingArea from '../../components/DrawingArea';
 import PredictArea from '../../components/PredictArea';
 import './App.css';
 import KNN from '../../algorithm/KNN';
-import minist from 'mnist';
-import * as knnClassifier from '@tensorflow-models/knn-classifier'
-
-const classifier = knnClassifier.create();
+import mnist from 'mnist';
 
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor( props ) {
     super(props)
-    let set = minist.set(5000, 500);
-    // {
-    //   input: [ 0, 0, 0, 1, 1, ... , 0, 0 ],
-    //   // a 784-length array of floats representing each pixel of the 28 x 28 image, normalized between 0 and 1
-    //   output: [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 ]
-    //   // a 10-length binary array that tells which digits (from 0 to 9) is in that image
-    // }
+    let set = mnist.set(5000, 500);
     let train_set = set.training;
     let knn_set = train_set.map(( value ) => {
       let input = value.input;
@@ -54,8 +45,6 @@ class App extends React.Component {
         }
     )
 
-
-
     this.state = {
       activeItem: -1,
       knn_classification: knn_classification,
@@ -66,14 +55,11 @@ class App extends React.Component {
     const {activeItem, knn_classification} = this.state;
     return (
       <div className="container">
-        <DrawingArea
-          knn_classification={knn_classification}
-        ></DrawingArea>
-        <PredictArea activeItem={activeItem}></PredictArea>
+        <DrawingArea knn_classification={knn_classification}/>
+        <PredictArea activeItem={activeItem}/>
       </div>
     );
   }
-
 }
 
 export default App;
